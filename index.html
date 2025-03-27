@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>store Botzzz - Hosting Panel & Script Bot WhatsApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0ea5e9;
+            --accent: #4ade80;
+            --text: #1e293b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #0284c7;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .card {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .price-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .price-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .price-card.popular {
+            border: 2px solid var(--accent);
+        }
+        .feature-icon {
+            background-color: rgba(30, 64, 175, 0.1);
+            color: var(--primary);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 0 1rem;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .testimonial-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .testimonial-card {
+            min-width: 100%;
+            padding: 1rem;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .faq-answer {
+            padding-top: 1rem;
+            display: none;
+        }
+        .faq-answer.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar fixed w-full z-10 top-0 bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-primary flex items-center">
+            <span class="text-primary">K</span>
+            <span class="text-secondary">Botzz</span>
+            <span class="text-accent"></span>
+        </a>
+        <div class="hidden md:flex space-x-8">
+            <a href="#hosting" class="font-medium hover:text-primary transition">Hosting Panel</a>
+            <a href="#scripts" class="font-medium hover:text-primary transition">Script Bot</a>
+            <a href="#features" class="font-medium hover:text-primary transition">Fitur</a>
+            <a href="#faq" class="font-medium hover:text-primary transition">FAQ</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="#demo" class="hidden md:block btn-outline">Coba Demo</a>
+            <a href="https://wa.me/6283877636168?text=Saya%20tertarik%20dengan%20layanan%20WA%20Bot%20Hub" class="btn-primary">
+                <i class="fab fa-whatsapp mr-2"></i>Hubungi Kami
+            </a>
+            <button class="md:hidden" id="menu-toggle">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden hidden">
+        <div class="flex flex-col space-y-2 px-4 py-2">
+            <a href="#hosting" class="font-medium hover:text-primary transition">Hosting Panel</a>
+            <a href="#scripts" class="font-medium hover:text-primary transition">Script Bot</a>
+            <a href="#features" class="font-medium hover:text-primary transition">Fitur</a>
+            <a href="#faq" class="font-medium hover:text-primary transition">FAQ</a>
+            <a href="#demo" class="btn-outline">Coba Demo</a>
+        </div>
+    </div>
+</nav>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-24 px-4">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                    Solusi Lengkap <span class="text-primary">Bot WhatsApp</span> untuk Bisnis Anda
+                </h1>
+                <p class="text-lg mb-8 text-gray-600">
+                    Tingkatkan layanan pelanggan dan otomatisasi bisnis Anda dengan hosting panel dan script bot WhatsApp terbaik. Mudah digunakan, performa tinggi, dan dukungan 24/7.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#demo" class="btn-primary">
+                        <i class="fas fa-play-circle mr-2"></i>Coba Demo Panel
+                    </a>
+                    <a href="#hosting" class="btn-outline">Lihat Paket Hosting</a>
+                </div>
+                <div class="mt-8 flex items-center">
+                    <div class="flex -space-x-2">
+                        <img src="https://files.catbox.moe/dh0epy.jpg" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
+                        <img src="https://files.catbox.moe/s3pp1w.jpg" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
+                        <img src="https://files.catbox.moe/lz24zk.jpg" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
+                    </div>
+                    <div class="ml-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                        <p class="text-sm text-gray-600">1000+ pelanggan puas ada testimoni</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-gray-100 rounded-3xl p-4 relative z-10">
+                    <img src="https://files.catbox.moe/8ej94u.jpg" alt="WhatsApp Bot Demo" class="rounded-2xl">
+                </div>
+                <div class="absolute -bottom-4 -right-4 bg-accent text-white font-bold py-3 px-6 rounded-lg z-20">
+                    Mudah & Cepat
+                </div>
+                <div class="absolute -z-10 top-10 right-10 w-full h-full bg-primary rounded-3xl"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Keunggulan Layanan Kami</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Nikmati berbagai fitur unggulan untuk memaksimalkan penggunaan bot WhatsApp dalam bisnis Anda
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Performa Tinggi</h3>
+                    <p class="text-gray-600">
+                        Server optimasi khusus untuk bot WhatsApp dengan uptime 99.9% dan respons cepat.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Keamanan Terjamin</h3>
+                    <p class="text-gray-600">
+                        Data terenkripsi dan terlindungi dengan sistem keamanan berlapis.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Dukungan 24/7</h3>
+                    <p class="text-gray-600">
+                        Tim support siaga 24 jam untuk membantu masalah teknis apapun.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mudah Dikonfigurasi</h3>
+                    <p class="text-gray-600">
+                        Panel kontrol intuitif tanpa perlu keahlian teknis untuk mengelola bot.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Fitur Lengkap</h3>
+                    <p class="text-gray-600">
+                        Berbagai fitur canggih seperti autoreply, broadcast, grup otomatis, dan database.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Skalabilitas</h3>
+                    <p class="text-gray-600">
+                        Mudah ditingkatkan sesuai kebutuhan bisnis yang berkembang.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hosting Plans Section -->
+    <section id="hosting" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Paket Hosting Bot WhatsApp</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Pilih paket sesuai kebutuhan Anda dengan fitur terbaik dan harga terjangkau
+                </p>
+            </div>
+            <div class="toggle-container">
+                <span class="text-gray-600 font-medium">Bulanan</span>
+                <label class="switch">
+                    <input type="checkbox" id="billing-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="text-gray-600 font-medium">Tahunan <span class="text-xs text-primary font-bold">Hemat 20%</span></span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 mt-8">
+                <!-- Starter Plan -->
+                <div class="price-card bg-white">
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2">Paket Starter</h3>
+                        <p class="text-gray-600 mb-6">Untuk bisnis kecil yang baru memulai</p>
+                        <div class="flex items-end mb-6">
+                            <span class="text-4xl font-bold">Rp99</span>
+                            <span class="text-gray-600 ml-1">/bulan</span>
+                        </div>
+                        <a href="https://wa.me/6283877636168?text=Saya%20tertarik%20dengan%20Paket%20Starter" class="btn-outline w-full text-center block mb-8">Pesan Sekarang</a>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>1 Bot WhatsApp</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>5.000 pesan/hari</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Auto Reply Basic</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Tanpa Database</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Support Email</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times mr-2"></i>
+                                <span>Fitur Grup</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times mr-2"></i>
+                                <span>API Akses</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Standard Plan -->
+                <div class="price-card bg-white popular">
+                    <div class="bg-accent text-white text-center py-2 font-medium">
+                        PALING POPULER
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2">Paket Standard</h3>
+                        <p class="text-gray-600 mb-6">Untuk bisnis menengah yang berkembang</p>
+                        <div class="flex items-end mb-6">
+                            <span class="text-4xl font-bold">Rp249</span>
+                            <span class="text-gray-600 ml-1">/bulan</span>
+                        </div>
+                        <a href="https://wa.me/6283877636168?text=Saya%20tertarik%20dengan%20Paket%20Standard" class="btn-primary w-full text-center block mb-8">Pesan Sekarang</a>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>3 Bot WhatsApp</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>10.000 pesan/hari</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Auto Reply Advanced</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>SQLite Database</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Support 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-accent mr-2"></i>
+                                <span>Fitur Grup Basic</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times mr-2"></i>
+                                <span>API Akses</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Premium Plan -
